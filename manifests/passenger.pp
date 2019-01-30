@@ -51,15 +51,18 @@ class puppet::passenger(
   $passenger_max_requests = 0,
   $passenger_stat_throttle_rate = 10,
   $passenger_disable_mod_status = true,
+  $manage_apache = false,
 ){
 
-  class { 'apache':
-    default_mods        => false,
-    default_confd_files => false,
-    default_vhost       => false,
-    server_tokens       => 'Prod',
-    server_signature    => 'Off',
-    trace_enable        => 'Off',
+  if $manage_apache {
+    class { 'apache':
+      default_mods        => false,
+      default_confd_files => false,
+      default_vhost       => false,
+      server_tokens       => 'Prod',
+      server_signature    => 'Off',
+      trace_enable        => 'Off',
+    }
   }
 
   if $passenger_disable_mod_status {
