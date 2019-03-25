@@ -74,6 +74,7 @@ class puppet::master (
   $certname                      = $::fqdn,
   $autosign                      = false,
   $reporturl                     = undef,
+  $trusted_node_data             = false,
   $puppet_ssldir                 = $::puppet::params::puppet_ssldir,
   $puppet_docroot                = $::puppet::params::puppet_docroot,
   $puppet_vardir                 = $::puppet::params::puppet_vardir,
@@ -306,6 +307,12 @@ class puppet::master (
     ensure  => present,
     setting => 'reports',
     value   => $reports,
+  }
+
+  ini_setting {'puppetmastertrustednodedata':
+    ensure  => present,
+    setting => 'trusted_node_data',
+    value   => $trusted_node_data,
   }
 
   ini_setting {'puppetmasterpluginsync':

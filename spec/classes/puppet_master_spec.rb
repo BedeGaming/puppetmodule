@@ -25,6 +25,7 @@ describe 'puppet::master', :type => :class do
                 :node_terminus          => 'exec',
                 :autosign               => 'true',
                 :certname               => 'test.example.com',
+                :trusted_node_data      => 'false',
                 :storeconfigs           => 'true',
                 :storeconfigs_dbserver  => 'test.example.com',
                 :dns_alt_names          => ['puppet'],
@@ -130,6 +131,14 @@ describe 'puppet::master', :type => :class do
                 :value   => params[:certname],
                 :require => 'File[/etc/puppet/puppet.conf]'
             )
+            should contain_ini_setting('puppetmastertrustednodedata').with(
+                :ensure  => 'present',
+                :section => 'master',
+                :setting => 'trusted_node_data',
+                :path    => '/etc/puppet/puppet.conf',
+                :value   => params[:trusted_node_data],
+                :require => 'File[/etc/puppet/puppet.conf]'
+            )
             should contain_ini_setting('puppetmasterreports').with(
                 :ensure  => 'present',
                 :section => 'master',
@@ -195,6 +204,7 @@ describe 'puppet::master', :type => :class do
                 :node_terminus          => 'exec',
                 :autosign               => 'true',
                 :certname               => 'test.example.com',
+                :trusted_node_data      => 'false',
                 :storeconfigs           => 'true',
                 :storeconfigs_dbserver  => 'test.example.com',
                 :dns_alt_names          => ['puppet'],
@@ -297,6 +307,14 @@ describe 'puppet::master', :type => :class do
                 :setting => 'certname',
                 :path    => '/etc/puppet/puppet.conf',
                 :value   => params[:certname],
+                :require => 'File[/etc/puppet/puppet.conf]'
+            )
+            should contain_ini_setting('puppetmastertrustednodedata').with(
+                :ensure  => 'present',
+                :section => 'master',
+                :setting => 'trusted_node_data',
+                :path    => '/etc/puppet/puppet.conf',
+                :value   => params[:trusted_node_data],
                 :require => 'File[/etc/puppet/puppet.conf]'
             )
             should contain_ini_setting('puppetmasterreports').with(
